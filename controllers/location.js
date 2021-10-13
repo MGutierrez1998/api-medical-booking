@@ -3,7 +3,24 @@ const { StatusCodes } = require('http-status-codes')
 const { NotFoundError, BadRequestError } = require('../errors')
 
 const getAllLocations = async (req,res) => {
-    const location = await Location.find({})
+    const { room, department } = req.query
+    const queryObject = {}
+
+    if (room) {
+        queryObject.room = { $regex: room, $options: 'i' }
+    }
+    if (department) {
+        queryObject.department = department
+    }
+
+    const result = Location.find(queryObject)
+    // pagination
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 10
+    const skip = (page - 1) * limit
+    result.skip(skip).limit(limit)
+
+    const location = await result
     res.status(StatusCodes.OK).json({ location, count: location.length })
 }
 
@@ -28,17 +45,16 @@ const createLocation = async (req,res) => {
 
 const updateLocation = async (req,res) => {
     const {
-        body: { building, floor, room, department},
+        body: { room, department},
         params: { id: locationId },
     } = req
 
-    if (building === '' || floor === '' || room === '' || department === '') {
-        throw new BadRequestError('building, floor, room, department fields cannot be empty')
+    if (room === '' || department === '') {
+        throw new BadRequestError('room, department fields cannot be empty')
     }
 
-    req.body.combined = `${building}.${floor}.${room}`
     const location = await Location.findByIdAndUpdate(
-        { _id: locationId},
+        locationId,
         req.body,
         { new: true, runValidators: true }
     )
@@ -53,9 +69,7 @@ const deleteLocation = async (req,res) => {
         params: { id: locationId },
     } = req
 
-    const location = await Location.findByIdAndRemove({
-        _id: locationId
-    })
+    const location = await Location.findByIdAndRemove(locationId)
     if (!location) {
         throw new NotFoundError(`No location with id ${locationId}`)
     }

@@ -3,18 +3,55 @@ const { StatusCodes } = require('http-status-codes')
 const { NotFoundError, BadRequestError } = require('../errors')
 
 const getAllDoctors = async (req,res) => {
-    const doctor = await Doctor.find({})
+    const { department, certification, select } = req.query
+    const queryObject = {}
+
+    if (department) {
+        queryObject.department = { $regex: department, $options: 'i' }
+    }
+
+    if (certification) {
+        queryObject.certification = { $regex: certification, $options: 'i' }
+    }
+
+    const result = Doctor.find(queryObject)
+
+    if (select) {
+        const selectList = [ ... select.split(',') ]
+        result.populate('userId', selectList)
+    } else {
+        result.populate('userId', ['email', 'name', 'surname', 'mobile'])
+    }
+
+    // pagination
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 10
+    const skip = (page - 1) * limit
+    
+    result.skip(skip).limit(limit)
+
+    const doctor = await result
     res.status(StatusCodes.OK).json({ doctor, count: doctor.length })
 }
 
 const getDoctor = async (req,res) => {
     const {
         params: { id: doctorId },
+        query: { select }
     } = req
-
-    const doctor = await Doctor.findOne({
+    
+    const result = Doctor.findOne({
         _id: doctorId,
     })
+
+    if (select) {
+        const selectList = [ ... select.split(',') ]
+        result.populate('userId', selectList)
+    } else {
+        result.populate('userId', ['email', 'name', 'surname', 'mobile'])
+    }
+
+    const doctor = await result
     if (!doctor) {
         throw new NotFoundError(`No doctor with id ${doctorId}`)
     }
@@ -39,7 +76,7 @@ const updateDoctor = async (req,res) => {
     }
 
     const doctor = await Doctor.findByIdAndUpdate(
-        { _id: doctorId },
+        doctorId,
         req.body,
         { new: true, runValidators: true }
     )

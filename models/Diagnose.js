@@ -18,20 +18,20 @@ const DiagnoseSchema = new mongoose.Schema(
         issue: {
             type: String,
             required: [true, 'Please provide a issue'],
-            maxlength: [200, `Issue must not exceed ${this[0]} characters`],
-            minlength: [3,`Issue must be greater than ${this[0]} characters`],
+            maxlength: [200, `Issue must not exceed 200 characters`],
+            minlength: [3,`Issue must be greater than 3 characters`],
         },
         outcome: {
             type: String,
             required: [true, 'Please provide a outcome'],
-            maxlength: [200, `Outcome must not exceed ${this[0]} characters`],
-            minlength: [3,`Outcome must be greater than ${this[0]} characters`],
+            maxlength: [200, `Outcome must not exceed 200 characters`],
+            minlength: [3,`Outcome must be greater than 3 characters`],
         },
         recommendation: {
             type: String,
             required: [true, 'Please provide a recommendation'],
-            maxlength: [200, `Recommendation must not exceed ${this[0]} characters`],
-            minlength: [3,`Recommendation must be greater than ${this[0]} characters`],
+            maxlength: [200, `Recommendation must not exceed 200 characters`],
+            minlength: [3,`Recommendation must be greater than 3 characters`],
         },
     },
     {timestamps: true}

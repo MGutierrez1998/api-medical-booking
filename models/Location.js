@@ -1,58 +1,27 @@
 const mongoose = require('mongoose')
-const deparments = require('../lists/departments')
+const { departments } = require('../lists')
 
 const LocationSchema = new mongoose.Schema(
     {
-        building: {
-            type: String,
-            enum: {
-                    values: [ ... Array(13).keys() ].map(String).splice(1,12),
-                    message: '{VALUE} is not supported for building, choose number between 1-12'
-            },
-            required: [true, 'Please provide building number'],
-            immutable: true,
-        },
-        floor: {
-            type: String,
-            enum: {
-                    values: [ ... Array(7).keys() ].map(String).splice(1,6),
-                    message: '{VALUE} is not supported for floor, choose number between 1-6'
-            },
-            required: [true, 'Please provide floor number'],
-            immutable: true,
-        },
         room: {
             type: String,
-            enum: {
-                    values: [ ... Array(21).keys() ].map(String).splice(1,20),
-                    message: '{VALUE} is not supported for room, choose number between 1-20'
-            },
-            required: [true, 'Please provide room number'],
-            immutable: true,
-        },
-        combined: {
-            type: String,
             match: [
-                /^\d+(\.\d+)*$/,
-                'Please have combined in this format 1.1.1'
+                /^\b([A-F])[.]([1-6])[.]([1-9]|[12][0-9]|3[01])\b$/,
+                'Please have romm in this format A.1.1'
             ],
             unique: true,
             immutable: true,
+            required: [true, 'Please provide room'],
         },
         department: {
             type: String,
             enum: {
-                    values: [ ... deparments ],
+                    values: [ ... departments ],
                     message: '{VALUE} is not supported for department, choose another deparment'
             },
-            required: [true, 'Please provide room number'],
+            required: [true, 'Please provide department'],
         }
     }
 )
-
-LocationSchema.pre('save', async function() {
-    this.combined = `${this.building}.${this.floor}.${this.room}`
-})
-
 
 module.exports = mongoose.model('Location', LocationSchema)

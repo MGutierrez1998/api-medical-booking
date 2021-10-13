@@ -6,18 +6,18 @@ const register = async (req, res) => {
     const user = await User.create({ ... req.body })
     const token = await user.createJWT()
 
+    const { email, role, name, surname } = user
     res.status(StatusCodes.CREATED)
         .json({ 
             user: {
-                email: user.email, 
-                role: user.role 
+                email, role, name, surname, 
             }, 
             token 
         })
 }
 
 const login = async (req, res) => {
-    const {email, password} = req.body
+    const { email, password } = req.body
 
     if (!email || !password) {
         throw new BadRequestError('Please provide email and password')
@@ -34,12 +34,13 @@ const login = async (req, res) => {
     }
 
     const token = await user.createJWT()
-
+    const { role, name, surname } = user
     res.status(StatusCodes.OK)
         .json({ 
             user: {
+                id: user._id,
                 email: user.email, 
-                role: user.role 
+                role, name, surname 
             }, 
             token 
         })

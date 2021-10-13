@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const deparments = require('../lists/departments')
-const certifications = require('../lists/certifications')
+const { certifications, departments  } = require('../lists')
+
 
 const DoctorSchema = new mongoose.Schema(
     {
@@ -10,11 +10,18 @@ const DoctorSchema = new mongoose.Schema(
                 required: [true, 'Please provide user'],
                 unique: true,
                 immutable: true,
+                validate: {
+                    validator: async function () {
+                        const results = await this.populate('userId',['role'])
+                        return results.userId.role === 'doctor'
+                    },
+                    message: 'userId {VALUE} does not have doctor role'
+                },
         },
         department: {
             type: String,
             enum: {
-                    values: [ ... deparments ],
+                    values: [ ... departments ],
                     message: '{VALUE} is not supported for department, choose another deparment'
             },
             required: [true, 'Please provide department'],
