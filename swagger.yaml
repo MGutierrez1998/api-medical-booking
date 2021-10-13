@@ -1,0 +1,620 @@
+openapi: 3.0.0
+info:
+  title: Medical Booking System API
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://medical-booking-system-api.herokuapp.com/api/v1
+    variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Register
+      operationId: Register
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - email
+                - password
+                - role
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: doctor@gmail.com
+                password:
+                  type: string
+                  example: Doctor1234!
+                role:
+                  type: string
+                  example: doctor
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - email
+                - password
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user@gmail.com
+                password:
+                  type: string
+                  example: User1234!
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /profile:
+    get:
+      tags:
+        - profile
+      summary: Get All Profiles
+      operationId: GetAllProfiles
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - profile
+      summary: Create Profile
+      operationId: CreateProfile
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - name
+                - surname
+                - gender
+                - nationality
+                - mobile
+                - street
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Doctor
+                surname:
+                  type: string
+                  example: PHD
+                gender:
+                  type: string
+                  example: male
+                nationality:
+                  type: string
+                  example: Australian
+                mobile:
+                  type: string
+                  example: 0405425338
+                street:
+                  type: string
+                  example: 21 Doctor Road Hospital
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /profile/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The profile ID
+    get:
+      tags:
+        - profile
+      summary: Get Profile
+      operationId: GetProfile
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - profile
+      summary: Update Profile
+      operationId: UpdateProfile
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - name
+                - surname
+                - gender
+                - nationality
+                - mobile
+                - street
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: user
+                surname:
+                  type: string
+                  example: surname
+                gender:
+                  type: string
+                  example: female
+                nationality:
+                  type: string
+                  example: America
+                mobile:
+                  type: integer
+                  format: int32
+                  example: 68561625
+                street:
+                  type: string
+                  example: 22 Test Road Testing
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /location:
+    get:
+      tags:
+        - location
+      summary: Get All Locations
+      operationId: GetAllLocations
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - location
+      summary: Create Location
+      operationId: CreateLocation
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - building
+                - floor
+                - room
+                - department
+              type: object
+              properties:
+                building:
+                  type: integer
+                  format: int32
+                  example: 9
+                floor:
+                  type: integer
+                  format: int32
+                  example: 6
+                room:
+                  type: integer
+                  format: int32
+                  example: 2
+                department:
+                  type: string
+                  example: Medicine
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /location/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The location ID
+    get:
+      tags:
+        - location
+      summary: Get Location
+      operationId: GetLocation
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - location
+      summary: Update Location
+      operationId: UpdateLocation
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - building
+                - floor
+                - room
+                - department
+              type: object
+              properties:
+                building:
+                  type: integer
+                  format: int32
+                  example: 3
+                floor:
+                  type: integer
+                  format: int32
+                  example: 2
+                room:
+                  type: integer
+                  format: int32
+                  example: 1
+                department:
+                  type: string
+                  example: Pediatrics
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+        - location
+      summary: Delete Location
+      operationId: DeleteLocation
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /doctor:
+    get:
+      tags:
+        - doctor
+      summary: Get All Doctors
+      operationId: GetAllDoctors
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - doctor
+      summary: Create Doctor
+      operationId: CreateDoctor
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - department
+                - certification
+              type: object
+              properties:
+                department:
+                  type: string
+                  example: Radiology
+                certification:
+                  type: string
+                  example: BA of Surgery
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /doctor/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The doctor ID
+    patch:
+      tags:
+        - doctor
+      summary: Update Doctor
+      operationId: UpdateDoctor
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - department
+                - certification
+              type: object
+              properties:
+                department:
+                  type: string
+                  example: Geriatrics
+                certification:
+                  type: string
+                  example: BA of Medicine
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+        - doctor
+      summary: Get Doctor
+      operationId: GetDoctor
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /booking:
+    post:
+      tags:
+        - booking
+      summary: Create Booking
+      operationId: CreateBooking
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - doctorId
+                - locationId
+                - procedure
+                - description
+                - bookingTime
+              type: object
+              properties:
+                doctorId:
+                  type: string
+                  example: 6154132eb0826a50c66d0596
+                locationId:
+                  type: string
+                  example: 615411f1b0826a50c66d0589
+                procedure:
+                  type: string
+                  example: Appendectomy
+                description:
+                  type: string
+                  example: This is a test for the description
+                bookingTime:
+                  type: integer
+                  format: int64
+                  example: 1632833484405
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+        - booking
+      summary: Get All Booking
+      operationId: GetAllBooking
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /booking/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The booking ID
+    get:
+      tags:
+        - booking
+      summary: Get Booking
+      operationId: GetBooking
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - booking
+      summary: Update Booking
+      operationId: UpdateBooking
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - doctorId
+                - locationId
+                - procedure
+                - description
+                - bookingTime
+              type: object
+              properties:
+                doctorId:
+                  type: string
+                  example: 6154132eb0826a50c66d0596
+                locationId:
+                  type: string
+                  example: 615411f1b0826a50c66d0589
+                procedure:
+                  type: string
+                  example: Liposuction
+                description:
+                  type: string
+                  example: yes this is a description test
+                bookingTime:
+                  type: integer
+                  format: int64
+                  example: 1632833484405
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+        - booking
+      summary: Delete Booking
+      operationId: DeleteBooking
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /diagnose:
+    get:
+      tags:
+        - diagnose
+      summary: Get All Diagnoses
+      operationId: GetAllDiagnoses
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - diagnose
+      summary: Create Diagnose
+      operationId: CreateDiagnose
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - userId
+                - bookingId
+                - issue
+                - outcome
+                - recommendation
+              type: object
+              properties:
+                userId:
+                  type: string
+                  example: 61540ee4b0826a50c66d057d
+                bookingId:
+                  type: string
+                  example: 615413fcb0826a50c66d059e
+                issue:
+                  type: string
+                  example: Appendix Eruption
+                outcome:
+                  type: string
+                  example: Surgical Removal of appendix
+                recommendation:
+                  type: string
+                  example: Anasthetic and Ice the local area
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /diagnose/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The diagnose ID
+    get:
+      tags:
+        - diagnose
+      summary: Get Diagnose
+      operationId: GetDiagnose
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - diagnose
+      summary: Update Diagnose
+      operationId: UpdateDiagnose
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+components:
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: auth
+  - name: profile
+  - name: location
+  - name: doctor
+  - name: booking
+  - name: diagnose
