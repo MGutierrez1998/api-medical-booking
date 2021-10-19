@@ -1,0 +1,53 @@
+body{
+    
+}
+
+#login-form{
+    /* display: none; */
+    max-width: 800px;
+    margin:auto
+}
+
+#registration-form{
+    /* display: none; */
+    max-width: 800px;
+    margin:auto
+}
+
+#dashboard{
+    display: none;
+}
+
+
+
+
+.row{
+    width: 500px;
+  
+}
+
+.inp{
+    margin-top: 6px;
+}
+
+#register-submit{
+    margin-top: 15px;
+}
+
+.login{
+    text-decoration: none;
+    color: black;
+    
+}
+
+#goto-login{
+    margin-top: 3px;
+}
+
+.group{
+    margin-top: 10px;
+}
+
+label{
+    font-size: 17px;
+}
