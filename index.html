@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script type="text/javascript" src="/lists.js" defer></script>
+        <script type="text/javascript" src="/front-end.js" defer></script>
+        <title>Hospital Booking System</title>
+    </head>
+    <body>
+        <div id="root">
+            <!-- Registration Form -->
+            <form id="registration-form">
+                <fieldset>
+                    <input
+                        type="hidden"
+                        name="role"
+                        id="register-role"
+                        value="patient"
+                    />
+
+                    <legend>Register as a Patient</legend>
+
+                    <div id="register-response"></div>
+
+                    <div>
+                        <label for="email">
+                            <strong>Email: </strong>
+                        </label>
+                        <input
+                            type="email"
+                            placeholder="Enter Email"
+                            name="email"
+                            id="register-email"
+                            title="Please provide a valid email"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label for="password">
+                            <strong>Password: </strong>
+                        </label>
+                        <input
+                            type="password"
+                            placeholder="Enter Password"
+                            name="password"
+                            id="register-password"
+                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
+                            title="Minimum eight characters, one upper case, one lower case, one number and one special character"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label for="name">
+                            <strong>Name: </strong>
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Enter Name"
+                            name="name"
+                            id="register-name"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label for="surname">
+                            <strong>Surname: </strong>
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Enter Surname"
+                            name="surname"
+                            id="register-surname"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label for="gender">
+                            <strong>Gender: </strong>
+                        </label>
+                        <input
+                            list="gender-list"
+                            type="text"
+                            name="gender"
+                            id="register-gender"
+                            required
+                        />
+                        <datalist id="gender-list"></datalist>
+                    </div>
+
+                    <div>
+                        <label for="nationality">
+                            <strong>Nationality: </strong>
+                        </label>
+                        <input
+                            list="nationality-list"
+                            type="text"
+                            name="nationality"
+                            id="register-nationality"
+                            required
+                        />
+                        <datalist id="nationality-list"></datalist>
+                    </div>
+
+                    <div>
+                        <label for="mobile">
+                            <strong>Mobile: </strong>
+                        </label>
+                        <input
+                            type="tel"
+                            placeholder="Enter Mobile"
+                            name="mobile"
+                            id="register-mobile"
+                            title="Please enter a valid phone number"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label for="address">
+                            <strong>Address: </strong>
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Enter Address"
+                            name="address"
+                            id="register-address"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <button type="submit" id="register-submit">
+                            Create Patient Account
+                        </button>
+                    </div>
+
+                    <div id="goto-login">
+                        <a href="#">Already have an account?</a>
+                    </div>
+                </fieldset>
+            </form>
+
+            <!-- Login Form -->
+            <form id="login-form">
+                <fieldset>
+                    <legend>Login</legend>
+
+                    <div id="login-response"></div>
+
+                    <div>
+                        <label for="email">
+                            <strong>Email: </strong>
+                        </label>
+                        <input
+                            type="email"
+                            placeholder="Enter Email"
+                            name="email"
+                            id="login-email"
+                            title="Please provide a valid email"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label for="password">
+                            <strong>Password: </strong>
+                        </label>
+                        <input
+                            type="password"
+                            placeholder="Enter Password"
+                            name="password"
+                            id="login-password"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <button type="submit">Login</button>
+                    </div>
+                    <div id="goto-register">
+                        <a href="#">Don't have an account?</a>
+                    </div>
+                </fieldset>
+            </form>
+
+            <!-- dashboard -->
+            <div id="dashboard">This a dashboard</div>
+        </div>
+    </body>
+</html>

@@ -16,6 +16,7 @@ const swaggerDocument = YAML.load("./swagger.yaml")
 const express = require("express")
 const app = express()
 const connectDB = require("./db/connect")
+const path = require("path")
 
 // middleware
 const notFoundMiddleware = require("./middleware/not-found")
@@ -53,10 +54,9 @@ app.use("/api/v1/booking", authenticateUser, bookingRouter)
 app.use("/api/v1/diagnose", authenticateUser, diagnoseRouter)
 
 // web routes
+app.use(express.static(path.join(__dirname, "public")))
 app.get("/", async (req, res) => {
-    res.send(
-        '<h1>Medical Booking System</h1><p>P\'s Get Degrees</p><a href="/api-use">Documentation</a>'
-    )
+    res.sendFile(path.join(__dirname, "/index.html"))
 })
 
 app.use("/api-use", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
