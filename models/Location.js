@@ -12,14 +12,11 @@ const LocationSchema = new mongoose.Schema({
         immutable: true,
         required: [true, "Please provide room"],
     },
-    department: {
-        type: String,
-        enum: {
-            values: [...departments],
-            message:
-                "{VALUE} is not supported for department, choose another deparment",
-        },
-        required: [true, "Please provide department"],
+    departmentId: {
+        type: mongoose.Types.ObjectId,
+        ref: "Department",
+        required: [true, "Please provide departmentId"],
+        immutable: true,
     },
 })
 
