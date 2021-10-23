@@ -15,6 +15,7 @@ const ProcedureSchema = new mongoose.Schema({
         trim: true,
         required: [true, "Please provide duration"],
         immutable: true,
+        unique: true,
     },
     duration: {
         type: Number,

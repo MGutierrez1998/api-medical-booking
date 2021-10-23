@@ -30,6 +30,7 @@ const doctorRouter = require("./routes/doctor")
 const bookingRouter = require("./routes/booking")
 const diagnoseRouter = require("./routes/diagnose")
 const procedureRouter = require("./routes/procedure")
+const departmentRouter = require("./routes/department")
 const authenticateUser = require("./middleware/authentication")
 
 // security
@@ -54,6 +55,7 @@ app.use("/api/v1/doctor", authenticateUser, doctorRouter)
 app.use("/api/v1/booking", authenticateUser, bookingRouter)
 app.use("/api/v1/diagnose", authenticateUser, diagnoseRouter)
 app.use("/api/v1/procedure", authenticateUser, procedureRouter)
+app.use("/api/v1/department", authenticateUser, departmentRouter)
 
 // web routes
 app.use(express.static(path.join(__dirname, "public")))
