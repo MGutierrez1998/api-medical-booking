@@ -14,6 +14,7 @@ const DepartmentSchema = new mongoose.Schema({
         {
             type: mongoose.Types.ObjectId,
             ref: "Procedure",
+            index: { unique: true, dropDups: true },
         },
     ],
 })

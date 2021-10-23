@@ -42,7 +42,7 @@ const updateDepartment = async (req, res) => {
 
     if (updateType === "push") {
         update = {
-            $push: {
+            $addToSet: {
                 procedures: procedure,
             },
         }
