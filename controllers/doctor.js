@@ -3,11 +3,11 @@ const { StatusCodes } = require("http-status-codes")
 const { NotFoundError, BadRequestError } = require("../errors")
 
 const getAllDoctors = async (req, res) => {
-    const { department, certification, select } = req.query
+    const { departmentId, certification, select } = req.query
     const queryObject = {}
 
-    if (department) {
-        queryObject.department = { $regex: department, $options: "i" }
+    if (departmentId) {
+        queryObject.departmentId = departmentId
     }
 
     if (certification) {
