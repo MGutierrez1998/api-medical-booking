@@ -549,7 +549,6 @@ const names = [
     // "Cillian",
     // "Cillin",
     // "Cinar",
-    // "CJ",
     // "C-Jay",
     // "Clark",
     // "Clarke",
