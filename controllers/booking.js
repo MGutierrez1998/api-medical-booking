@@ -7,7 +7,7 @@ const getAllBookings = async (req, res) => {
         userId,
         doctorId,
         locationId,
-        procedure,
+        procedureId,
         week,
         dateFilters,
         sort,
@@ -24,8 +24,8 @@ const getAllBookings = async (req, res) => {
     if (locationId) {
         queryObject.locationId = locationId
     }
-    if (procedure) {
-        queryObject.procedure = { $regex: procedure, $options: "i" }
+    if (procedureId) {
+        queryObject.procedureId = procedureId
     }
     // uses specified datetime to get the range of the whole week
     if (week) {
@@ -66,7 +66,16 @@ const getAllBookings = async (req, res) => {
 
     const result = Booking.find(queryObject)
 
-    result.populate("locationId", ["room"])
+    result.populate("userId", ["email", "name", "surname", "mobile"])
+    result.populate({
+        path: "doctorId",
+        populate: {
+            path: "userId",
+            select: ["email", "name", "surname", "mobile"],
+        },
+    })
+    result.populate("locationId")
+    result.populate("procedureId")
 
     // ordering
     if (sort) {
@@ -97,16 +106,17 @@ const getBooking = async (req, res) => {
 
     const result = Booking.findById(bookingId)
     result.populate("userId", ["email", "name", "surname", "mobile"])
-    result.populate("doctorId")
+    result.populate({
+        path: "doctorId",
+        populate: {
+            path: "userId",
+            select: ["email", "name", "surname", "mobile"],
+        },
+    })
     result.populate("locationId")
+    result.populate("procedureId")
 
     const booking = await result
-    await booking?.doctorId?.populate("userId", [
-        "email",
-        "name",
-        "surname",
-        "mobile",
-    ])
 
     if (!booking) {
         throw new NotFoundError(`No booking with id ${bookingId}`)
@@ -123,19 +133,19 @@ const createBooking = async (req, res) => {
 
 const updateBooking = async (req, res) => {
     const {
-        body: { doctorId, locationId, procedure, description, bookingTime },
+        body: { doctorId, locationId, procedureId, description, bookingTime },
         params: { id: bookingId },
     } = req
 
     if (
         doctorId === "" ||
         locationId === "" ||
-        procedure === "" ||
+        procedureId === "" ||
         description === "" ||
         bookingTime === ""
     ) {
         throw new BadRequestError(
-            "doctorId, locationId, procedure, description, bookingTime fields cannot be empty"
+            "doctorId, locationId, procedureId, description, bookingTime fields cannot be empty"
         )
     }
 
@@ -144,7 +154,12 @@ const updateBooking = async (req, res) => {
         throw new NotFoundError(`No booking with id ${bookingId}`)
     }
 
-    await results.checkUpdate({ doctorId, locationId, procedure, bookingTime })
+    await results.checkUpdate({
+        doctorId,
+        locationId,
+        procedureId,
+        bookingTime,
+    })
 
     const booking = await Booking.findByIdAndUpdate(bookingId, req.body, {
         new: true,

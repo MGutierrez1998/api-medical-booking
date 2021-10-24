@@ -1,16 +1,16 @@
-const Location = require('../models/Location')
-const { StatusCodes } = require('http-status-codes')
-const { NotFoundError, BadRequestError } = require('../errors')
+const Location = require("../models/Location")
+const { StatusCodes } = require("http-status-codes")
+const { NotFoundError, BadRequestError } = require("../errors")
 
-const getAllLocations = async (req,res) => {
-    const { room, department } = req.query
+const getAllLocations = async (req, res) => {
+    const { room, departmentId } = req.query
     const queryObject = {}
 
     if (room) {
-        queryObject.room = { $regex: room, $options: 'i' }
+        queryObject.room = { $regex: room, $options: "i" }
     }
-    if (department) {
-        queryObject.department = department
+    if (departmentId) {
+        queryObject.departmentId = departmentId
     }
 
     const result = Location.find(queryObject)
@@ -24,7 +24,7 @@ const getAllLocations = async (req,res) => {
     res.status(StatusCodes.OK).json({ location, count: location.length })
 }
 
-const getLocation = async (req,res) => {
+const getLocation = async (req, res) => {
     const {
         params: { id: locationId },
     } = req
@@ -38,33 +38,32 @@ const getLocation = async (req,res) => {
     res.status(StatusCodes.OK).json({ location })
 }
 
-const createLocation = async (req,res) => {
+const createLocation = async (req, res) => {
     const location = await Location.create(req.body)
     res.status(StatusCodes.CREATED).json(location)
 }
 
-const updateLocation = async (req,res) => {
+const updateLocation = async (req, res) => {
     const {
-        body: { room, department},
+        body: { room, department },
         params: { id: locationId },
     } = req
 
-    if (room === '' || department === '') {
-        throw new BadRequestError('room, department fields cannot be empty')
+    if (room === "" || department === "") {
+        throw new BadRequestError("room, department fields cannot be empty")
     }
 
-    const location = await Location.findByIdAndUpdate(
-        locationId,
-        req.body,
-        { new: true, runValidators: true }
-    )
+    const location = await Location.findByIdAndUpdate(locationId, req.body, {
+        new: true,
+        runValidators: true,
+    })
     if (!location) {
         throw new NotFoundError(`No location with id ${locationId}`)
     }
     res.status(StatusCodes.OK).json({ location })
 }
 
-const deleteLocation = async (req,res) => {
+const deleteLocation = async (req, res) => {
     const {
         params: { id: locationId },
     } = req

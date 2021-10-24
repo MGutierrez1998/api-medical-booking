@@ -239,10 +239,123 @@
                 </fieldset>
             </form>
 
-            <!-- dashboard -->
+            <!-- Dashboard -->
             <div id="dashboard">
-                This a dashboard
+                <nav>
+                    <button type="button" id="create-booking">
+                        Make a Booking
+                    </button>
+                    <button type="button" id="goto-dashboard">Dashboard</button>
+                    <button type="button" id="goto-diagnose">
+                        Medical History
+                    </button>
+                </nav>
+
+                <!-- Booking Form -->
+                <form id="booking-form">
+                    <fieldset>
+                        <legend style="font-weight: 700; margin-bottom: 20px">
+                            Make a booking
+                        </legend>
+
+                        <div id="booking-response"></div>
+
+                        <div>
+                            <label for="department">
+                                <strong>Department</strong>
+                            </label>
+                            <select
+                                name="department"
+                                id="department-list"
+                                required
+                            >
+                                <option value="" disabled selected>
+                                    Choose Department
+                                </option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="procedureId">
+                                <strong>Procedure</strong>
+                            </label>
+                            <select
+                                name="procedureId"
+                                id="procedure-list"
+                                required
+                            >
+                                <option value="" disabled selected>
+                                    Choose Procedure
+                                </option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="doctorId">
+                                <strong>Doctor</strong>
+                            </label>
+                            <select name="doctorId" id="doctor-list" required>
+                                <option value="" disabled selected>
+                                    Choose Doctor
+                                </option>
+                            </select>
+                            <button type="button" id="next-doctor">↻</button>
+                        </div>
+
+                        <div>
+                            <label for="locationId">
+                                <strong>Location</strong>
+                            </label>
+                            <select
+                                name="locationId"
+                                id="location-list"
+                                required
+                            >
+                                <option value="" disabled selected>
+                                    Choose Location
+                                </option>
+                            </select>
+                            <button type="button" id="next-location">↻</button>
+                        </div>
+
+                        <div>
+                            <label for="bookingTime">
+                                <strong>Booking Time</strong>
+                            </label>
+                            <input
+                                type="datetime-local"
+                                name="bookingTime"
+                                id="booking-bookingTime"
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label for="description">
+                                <strong>Description</strong>
+                            </label>
+                            <textarea
+                                id="booking-description"
+                                name="description"
+                                rows="4"
+                                cols="50"
+                                maxlength="100"
+                                placeholder="Add Description"
+                                required
+                            >
+                            </textarea>
+                        </div>
+
+                        <div>
+                            <button type="submit" id="booking-submit">
+                                Book Appointment
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+
                 <div id="booking-list"></div>
+                <div id="booking-diagnose"></div>
             </div>
 
             <!-- <div id="welcome">

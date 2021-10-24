@@ -1,8 +1,8 @@
-const Diagnose = require('../models/Diagnose')
-const { StatusCodes } = require('http-status-codes')
-const { NotFoundError, BadRequestError } = require('../errors')
+const Diagnose = require("../models/Diagnose")
+const { StatusCodes } = require("http-status-codes")
+const { NotFoundError, BadRequestError } = require("../errors")
 
-const getAllDiagnoses = async (req,res) => {
+const getAllDiagnoses = async (req, res) => {
     const { userId } = req.query
     const queryObject = {}
 
@@ -10,7 +10,13 @@ const getAllDiagnoses = async (req,res) => {
         queryObject.userId = userId
     }
 
-    const result = Diagnose.find({queryObject}).sort('createdAt')
+    const result = Diagnose.find({ queryObject }).sort("createdAt")
+    result.populate({
+        path: "bookingId",
+        populate: {
+            path: "procedureId",
+        },
+    })
 
     const page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 10
@@ -23,7 +29,7 @@ const getAllDiagnoses = async (req,res) => {
     res.status(StatusCodes.OK).json({ diagnose, count: diagnose.length })
 }
 
-const getDiagnose = async (req,res) => {
+const getDiagnose = async (req, res) => {
     const {
         params: { id: diagnoseId },
     } = req
@@ -37,21 +43,28 @@ const getDiagnose = async (req,res) => {
     res.status(StatusCodes.OK).json({ diagnose })
 }
 
-const createDiagnose = async (req,res) => {
-
+const createDiagnose = async (req, res) => {
     const diagnose = await Diagnose.create(req.body)
 
     res.status(StatusCodes.CREATED).json(diagnose)
 }
 
-const updateDiagnose = async (req,res) => {
+const updateDiagnose = async (req, res) => {
     const {
         body: { userId, bookingId, issue, outcome, recommendation },
         params: { id: diagnoseId },
     } = req
 
-    if (userId === '' || bookingId === '' || issue === '' || outcome === '' || recommendation === '') {
-        throw new BadRequestError('userId, bookingId, issue, outcome, recommendation fields cannot be empty')
+    if (
+        userId === "" ||
+        bookingId === "" ||
+        issue === "" ||
+        outcome === "" ||
+        recommendation === ""
+    ) {
+        throw new BadRequestError(
+            "userId, bookingId, issue, outcome, recommendation fields cannot be empty"
+        )
     }
 
     const diagnose = await Diagnose.findByIdAndUpdate(
