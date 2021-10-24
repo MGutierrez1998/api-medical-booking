@@ -1,100 +1,103 @@
-body{
-    
+body {
 }
 
-#login-form{
+#login-form {
     /* display: none; */
     max-width: 800px;
-    margin:auto
+    margin: auto;
 }
 
-#registration-form{
+#registration-form {
     /* display: none; */
     max-width: 800px;
-    margin:auto
+    margin: auto;
 }
 
-#dashboard{
+#dashboard {
     display: none;
 }
 
-
-
-
-.row{
+.row {
     width: 500px;
-  
 }
 
-.inp{
+.inp {
     margin-top: 6px;
 }
 
-#register-submit{
+#register-submit {
     margin-top: 15px;
 }
 
-.login{
+.login {
     text-decoration: none;
     color: black;
-    
 }
 
-#goto-login{
+#goto-login {
     margin-top: 3px;
 }
 
-.group{
+.group {
     margin-top: 10px;
 }
 
-label{
+label {
     font-size: 17px;
 }
 
-
 /* Welcome page */
-.welcomeh1{
+.welcomeh1 {
     font-weight: 500;
     color: #129daf;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  .welcomeh2{
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.welcomeh2 {
     font-weight: 500;
     font-size: medium;
     color: #129daf;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin-bottom: 20px;
-  }
+}
 
-  .welcome{
+.welcome {
     background-image: url("../images/background.jpg");
     height: 100vh;
     width: 100vw;
     background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-    
-  }
-  .welcard{
-    margin-top:30vh;
-    background-color:#eeeeee4f !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.welcard {
+    margin-top: 30vh;
+    background-color: #eeeeee4f !important;
     text-align: center;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  .navbar-brand{
+.navbar-brand {
     text-transform: none !important;
     color: #eb6864 !important;
     margin-left: 10px;
     margin: auto !important;
-    
+
     font-size: 30px !important;
     font-weight: 600;
+}
 
-  }
+nav {
+    height: 65px;
+}
 
-  nav{
-      height: 65px;
-  }
+#register-response {
+    color: red;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#login-response {
+    color: red;
+    font-size: 18px;
+    font-weight: 500;
+}

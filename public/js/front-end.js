@@ -1,28 +1,23 @@
 // set token
 let token = ""
+let userId = ""
 
 // registration
 
 // input genders list
-const register_gender_list = document.querySelector("#gender-list")
-let gender_options = ""
-genders.forEach((gender) => {
-    gender_options += `<option value="${gender}" />`
-})
-register_gender_list.innerHTML = gender_options
+document.querySelector("#gender-list").innerHTML = genders
+    .map((gender) => `<option value="${gender}" />`)
+    .join("")
 
 // input nationalities list
-const register_nationality_list = document.querySelector("#nationality-list")
-let nationality_options = ""
-nationalities.forEach((nationality) => {
-    nationality_options += `<option value="${nationality}" />`
-})
-register_nationality_list.innerHTML = nationality_options
+document.querySelector("#nationality-list").innerHTML = nationalities
+    .map((nationality) => `<option value="${nationality}" />`)
+    .join("")
 
 // on registation form submission event
 const register = document.querySelector("#registration-form")
 register.style.display = "none"
-register.addEventListener("submit", async function (event) {
+register.addEventListener("submit", async (event) => {
     event.preventDefault()
 
     const {
@@ -77,7 +72,7 @@ document.querySelector("#goto-login").onclick = () => {
 
 // on login form submission event
 const login = document.querySelector("#login-form")
-login.addEventListener("submit", async function (event) {
+login.addEventListener("submit", async (event) => {
     event.preventDefault()
 
     const { email, password } = login.elements
@@ -99,6 +94,8 @@ login.addEventListener("submit", async function (event) {
         login.style.display = "none"
         dashboard.style.display = "block"
         token = response.token
+        userId = response.user.id
+        load_dashboard()
     } else {
         const pop_up = document.querySelector("#login-response")
         pop_up.innerHTML = `<h3>${response.msg}</h3>`
@@ -118,3 +115,36 @@ document.querySelector("#goto-register").onclick = () => {
 
 const dashboard = document.querySelector("#dashboard")
 dashboard.style.display = "none"
+
+async function load_dashboard() {
+    // dashboard.innerHTML +=
+
+    const date = new Date()
+    const response = await (
+        await fetch(`/api/v1/booking?userId=${userId}&week=${date.getTime()}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        })
+    ).json()
+
+    const { booking } = response
+    document.querySelector("#booking-list").innerHTML = booking
+        .map((book) => {
+            const {
+                _id,
+                bookingTime,
+                procedure,
+                locationId: { room },
+            } = book
+
+            return `<div id="${_id}">
+            <h3>Procedure: ${procedure}</h3>
+            <h4>Booking Time: ${bookingTime}</h4>
+            <h4>Location: ${room}</h4>
+        </div>`
+        })
+        .join("")
+}
