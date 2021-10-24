@@ -3,7 +3,7 @@ const { StatusCodes } = require("http-status-codes")
 const { NotFoundError } = require("../errors")
 
 const getAllDepartments = async (req, res) => {
-    const result = Department.find({})
+    const result = Department.find({}).populate("procedures")
     const department = await result
     res.status(StatusCodes.OK).json({ department, count: department.length })
 }

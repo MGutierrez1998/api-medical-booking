@@ -66,7 +66,16 @@ const getAllBookings = async (req, res) => {
 
     const result = Booking.find(queryObject)
 
-    result.populate("locationId", ["room"])
+    result.populate("userId", ["email", "name", "surname", "mobile"])
+    result.populate({
+        path: "doctorId",
+        populate: {
+            path: "userId",
+            select: ["email", "name", "surname", "mobile"],
+        },
+    })
+    result.populate("locationId")
+    result.populate("procedureId")
 
     // ordering
     if (sort) {

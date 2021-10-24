@@ -3,8 +3,12 @@ const { StatusCodes } = require("http-status-codes")
 const { NotFoundError, BadRequestError } = require("../errors")
 
 const getAllDoctors = async (req, res) => {
-    const { departmentId, certification, select } = req.query
+    const { userId, departmentId, certification, select } = req.query
     const queryObject = {}
+
+    if (userId) {
+        queryObject.userId = userId
+    }
 
     if (departmentId) {
         queryObject.departmentId = departmentId

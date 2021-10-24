@@ -96,6 +96,15 @@ BookingSchema.pre("save", async function () {
     if (doctor[0]) {
         throw new ConflictError("This doctor is occupied at this time")
     }
+
+    // checks if this user already has a booking in this timeframe
+    const userId = this.userId._id.toString()
+    const user = await booking.find({ userId, bookingTime })
+    if (user[0]) {
+        throw new ConflictError(
+            "This user already has a booking at this timeframe"
+        )
+    }
 })
 
 BookingSchema.methods.checkUpdate = async function ({
