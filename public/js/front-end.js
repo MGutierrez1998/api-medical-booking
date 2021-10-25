@@ -430,12 +430,18 @@ booking.addEventListener("submit", async (event) => {
                     },
                 } = book
 
-                console.log(book)
+                const date = new Date(bookingTime)
 
                 return `<div id="${_id}">
                             <h3>Procedure: ${procedure}</h3>
                             <h4>Doctor: ${name} ${surname}</h4>
-                            <h4>Booking Time: ${bookingTime}</h4>
+                            <h4>Booking Time: ${
+                                date.getHours() > 12
+                                    ? date.getHours() - 12
+                                    : date.getHours()
+                            }:${date.getMinutes()}${
+                    date.getHours() > 12 ? "pm" : "am"
+                },  ${date.getDate()}/${date.getUTCMonth()}/${date.getUTCFullYear()}</h4>
                             <h4>Location: ${room}</h4>
                         </div>`
             })
