@@ -5,7 +5,7 @@ const {
     getProcedure,
     createProcedure,
     deleteProcedure,
-} = require("../controllers/Procedure")
+} = require("../controllers/procedure")
 
 router.route("/").get(getAllProcedures).post(createProcedure)
 
