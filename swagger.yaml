@@ -1,7 +1,10 @@
 openapi: 3.0.0
 info:
-    title: Medical Booking System API
-    contact: {}
+    title: Medical Booking API
+    description: Made by - P's Get Degrees
+    contact:
+        name: Go to the Front End
+        url: https://api-medical-booking.herokuapp.com/
     version: "1.0"
 servers:
     - url: https://api-medical-booking.herokuapp.com/api/v1
@@ -23,22 +26,281 @@ paths:
                                 - email
                                 - password
                                 - role
+                                - name
+                                - surname
+                                - gender
+                                - nationality
+                                - mobile
+                                - address
                             type: object
                             properties:
                                 email:
                                     type: string
-                                    example: doctor@gmail.com
+                                    example: user@gmail.com
+                                    pattern: '/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
                                 password:
                                     type: string
-                                    example: Doctor1234!
+                                    example: User1234!
+                                    description: "Must have minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character"
+                                    pattern: "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/"
                                 role:
                                     type: string
-                                    example: doctor
+                                    example: patient
+                                    enum: [patient, doctor, admin]
+                                name:
+                                    type: string
+                                    example: Robert
+                                    minLength: 3
+                                    maxLength: 50
+                                    pattern: "/^[A-Za-z-]+$/"
+                                surname:
+                                    type: string
+                                    example: Alexander
+                                    minLength: 3
+                                    maxLength: 50
+                                    pattern: "/^[A-Za-z-]+$/"
+                                gender:
+                                    type: string
+                                    example: other
+                                    enum: [other, male, female]
+                                nationality:
+                                    type: string
+                                    example: other
+                                    enum:
+                                        [
+                                            "Afghan",
+                                            "Albanian",
+                                            "Algerian",
+                                            "American",
+                                            "Andorran",
+                                            "Angolan",
+                                            "Antiguans",
+                                            "Argentinean",
+                                            "Armenian",
+                                            "Australian",
+                                            "Austrian",
+                                            "Azerbaijani",
+                                            "Bahamian",
+                                            "Bahraini",
+                                            "Bangladeshi",
+                                            "Barbadian",
+                                            "Barbudans",
+                                            "Batswana",
+                                            "Belarusian",
+                                            "Belgian",
+                                            "Belizean",
+                                            "Beninese",
+                                            "Bhutanese",
+                                            "Bolivian",
+                                            "Bosnian",
+                                            "Brazilian",
+                                            "British",
+                                            "Bruneian",
+                                            "Bulgarian",
+                                            "Burkinabe",
+                                            "Burmese",
+                                            "Burundian",
+                                            "Cambodian",
+                                            "Cameroonian",
+                                            "Canadian",
+                                            "Cape Verdean",
+                                            "Central African",
+                                            "Chadian",
+                                            "Chilean",
+                                            "Chinese",
+                                            "Colombian",
+                                            "Comoran",
+                                            "Congolese",
+                                            "Costa Rican",
+                                            "Croatian",
+                                            "Cuban",
+                                            "Cypriot",
+                                            "Czech",
+                                            "Danish",
+                                            "Djibouti",
+                                            "Dominican",
+                                            "Dutch",
+                                            "East Timorese",
+                                            "Ecuadorean",
+                                            "Egyptian",
+                                            "Emirian",
+                                            "Equatorial Guinean",
+                                            "Eritrean",
+                                            "Estonian",
+                                            "Ethiopian",
+                                            "Fijian",
+                                            "Filipino",
+                                            "Finnish",
+                                            "French",
+                                            "Gabonese",
+                                            "Gambian",
+                                            "Georgian",
+                                            "German",
+                                            "Ghanaian",
+                                            "Greek",
+                                            "Grenadian",
+                                            "Guatemalan",
+                                            "Guinea-Bissauan",
+                                            "Guinean",
+                                            "Guyanese",
+                                            "Haitian",
+                                            "Herzegovinian",
+                                            "Honduran",
+                                            "Hungarian",
+                                            "I-Kiribati",
+                                            "Icelander",
+                                            "Indian",
+                                            "Indonesian",
+                                            "Iranian",
+                                            "Iraqi",
+                                            "Irish",
+                                            "Israeli",
+                                            "Italian",
+                                            "Ivorian",
+                                            "Jamaican",
+                                            "Japanese",
+                                            "Jordanian",
+                                            "Kazakhstani",
+                                            "Kenyan",
+                                            "Kittian and Nevisian",
+                                            "Kuwaiti",
+                                            "Kyrgyz",
+                                            "Laotian",
+                                            "Latvian",
+                                            "Lebanese",
+                                            "Liberian",
+                                            "Libyan",
+                                            "Liechtensteiner",
+                                            "Lithuanian",
+                                            "Luxembourger",
+                                            "Macedonian",
+                                            "Malagasy",
+                                            "Malawian",
+                                            "Malaysian",
+                                            "Maldivian",
+                                            "Malian",
+                                            "Maltese",
+                                            "Marshallese",
+                                            "Mauritanian",
+                                            "Mauritian",
+                                            "Mexican",
+                                            "Micronesian",
+                                            "Moldovan",
+                                            "Monacan",
+                                            "Mongolian",
+                                            "Moroccan",
+                                            "Mosotho",
+                                            "Motswana",
+                                            "Mozambican",
+                                            "Namibian",
+                                            "Nauruan",
+                                            "Nepalese",
+                                            "New Zealander",
+                                            "Ni-Vanuatu",
+                                            "Nicaraguan",
+                                            "Nigerian",
+                                            "Nigerien",
+                                            "North Korean",
+                                            "Northern Irish",
+                                            "Norwegian",
+                                            "Omani",
+                                            "Pakistani",
+                                            "Palauan",
+                                            "Panamanian",
+                                            "Papua New Guinean",
+                                            "Paraguayan",
+                                            "Peruvian",
+                                            "Polish",
+                                            "Portuguese",
+                                            "Qatari",
+                                            "Romanian",
+                                            "Russian",
+                                            "Rwandan",
+                                            "Saint Lucian",
+                                            "Salvadoran",
+                                            "Samoan",
+                                            "San Marinese",
+                                            "Sao Tomean",
+                                            "Saudi",
+                                            "Scottish",
+                                            "Senegalese",
+                                            "Serbian",
+                                            "Seychellois",
+                                            "Sierra Leonean",
+                                            "Singaporean",
+                                            "Slovakian",
+                                            "Slovenian",
+                                            "Solomon Islander",
+                                            "Somali",
+                                            "South African",
+                                            "South Korean",
+                                            "Spanish",
+                                            "Sri Lankan",
+                                            "Sudanese",
+                                            "Surinamer",
+                                            "Swazi",
+                                            "Swedish",
+                                            "Swiss",
+                                            "Syrian",
+                                            "Taiwanese",
+                                            "Tajik",
+                                            "Tanzanian",
+                                            "Thai",
+                                            "Togolese",
+                                            "Tongan",
+                                            "Trinidadian or Tobagonian",
+                                            "Tunisian",
+                                            "Turkish",
+                                            "Tuvaluan",
+                                            "Ugandan",
+                                            "Ukrainian",
+                                            "Uruguayan",
+                                            "Uzbekistani",
+                                            "Venezuelan",
+                                            "Vietnamese",
+                                            "Welsh",
+                                            "Yemenite",
+                                            "Zambian",
+                                            "Zimbabwean",
+                                        ]
+                                mobile:
+                                    type: string
+                                    description: "Must start with 02, 04, 03, 07, 08 and have 10 digits all together"
+                                    example: "0412345678"
+                                    pattern: '/^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$/'
+                                address:
+                                    type: string
+                                    example: "123 Testing Street, NSW 2000"
+                                    minLength: 3
+                                    maxLength: 100
                 required: false
             responses:
-                "200":
-                    description: ""
+                "201":
+                    description: "Successfully Created User"
                     headers: {}
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    user:
+                                        type: object
+                                        properties:
+                                            email:
+                                                type: string
+                                                example: user@gmail.com
+                                            role:
+                                                type: string
+                                                example: patient
+                                            name:
+                                                type: string
+                                                example: robert
+                                            surname:
+                                                type: string
+                                                example: alexander
+                                    token:
+                                        type: string
+                                        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTc2ODJjMDFjOTZlZmM0NjE1NGIwNDkiLCJlbWFpbCI6ImRvY3RvcjFAZ21haWwuY29tIiwicm9sZSI6ImRvY3RvciIsIm5hbWUiOiJ1c2VyIiwic3VybmFtZSI6Im9uZSIsImlhdCI6MTYzNTE1NjY3MiwiZXhwIjoxNjM3NzQ4NjcyfQ.9FcHX5E5FX4s8pXppwtwTi4LyczdQV7xag5INty84Yk"
             deprecated: false
             security: []
     /auth/login:
@@ -67,79 +329,63 @@ paths:
                 required: false
             responses:
                 "200":
-                    description: ""
+                    description: "Logged in Successfully"
                     headers: {}
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    user:
+                                        type: object
+                                        properties:
+                                            email:
+                                                type: string
+                                                example: user@gmail.com
+                                            role:
+                                                type: string
+                                                example: patient
+                                            name:
+                                                type: string
+                                                example: robert
+                                            surname:
+                                                type: string
+                                                example: alexander
+                                    token:
+                                        type: string
+                                        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTc2ODJjMDFjOTZlZmM0NjE1NGIwNDkiLCJlbWFpbCI6ImRvY3RvcjFAZ21haWwuY29tIiwicm9sZSI6ImRvY3RvciIsIm5hbWUiOiJ1c2VyIiwic3VybmFtZSI6Im9uZSIsImlhdCI6MTYzNTE1NjY3MiwiZXhwIjoxNjM3NzQ4NjcyfQ.9FcHX5E5FX4s8pXppwtwTi4LyczdQV7xag5INty84Yk"
             deprecated: false
             security: []
-    /profile:
+    /user:
         get:
             tags:
-                - profile
-            summary: Get All Profiles
-            operationId: GetAllProfiles
-            parameters: []
+                - user
+            summary: Get All Users
+            parameters:
+                - name: role
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      enum: [patient, doctor, admin]
             responses:
                 "200":
                     description: ""
                     headers: {}
             deprecated: false
-        post:
-            tags:
-                - profile
-            summary: Create Profile
-            operationId: CreateProfile
-            parameters: []
-            requestBody:
-                content:
-                    application/x-www-form-urlencoded:
-                        encoding: {}
-                        schema:
-                            required:
-                                - name
-                                - surname
-                                - gender
-                                - nationality
-                                - mobile
-                                - street
-                            type: object
-                            properties:
-                                name:
-                                    type: string
-                                    example: Doctor
-                                surname:
-                                    type: string
-                                    example: PHD
-                                gender:
-                                    type: string
-                                    example: male
-                                nationality:
-                                    type: string
-                                    example: Australian
-                                mobile:
-                                    type: string
-                                    example: 0405425338
-                                street:
-                                    type: string
-                                    example: 21 Doctor Road Hospital
-                required: false
-            responses:
-                "200":
-                    description: ""
-                    headers: {}
-            deprecated: false
-    /profile/{id}:
+    /user/{id}:
         parameters:
             - in: path
               name: id
               schema:
                   type: string
               required: true
-              description: The profile ID
+              description: The user ID
         get:
             tags:
-                - profile
-            summary: Get Profile
-            operationId: GetProfile
+                - user
+            summary: Get User
+            operationId: GetUser
             parameters: []
             responses:
                 "200":
@@ -148,9 +394,9 @@ paths:
             deprecated: false
         patch:
             tags:
-                - profile
-            summary: Update Profile
-            operationId: UpdateProfile
+                - user
+            summary: Update Users
+            operationId: UpdateUser
             parameters: []
             requestBody:
                 content:
@@ -158,33 +404,27 @@ paths:
                         encoding: {}
                         schema:
                             required:
-                                - name
-                                - surname
-                                - gender
-                                - nationality
-                                - mobile
-                                - street
+                                - building
+                                - floor
+                                - room
+                                - department
                             type: object
                             properties:
-                                name:
-                                    type: string
-                                    example: user
-                                surname:
-                                    type: string
-                                    example: surname
-                                gender:
-                                    type: string
-                                    example: female
-                                nationality:
-                                    type: string
-                                    example: America
-                                mobile:
+                                building:
                                     type: integer
                                     format: int32
-                                    example: 68561625
-                                street:
+                                    example: 3
+                                floor:
+                                    type: integer
+                                    format: int32
+                                    example: 2
+                                room:
+                                    type: integer
+                                    format: int32
+                                    example: 1
+                                department:
                                     type: string
-                                    example: 22 Test Road Testing
+                                    example: Pediatrics
                 required: false
             responses:
                 "200":
@@ -613,7 +853,7 @@ security:
     - httpBearer: []
 tags:
     - name: auth
-    - name: profile
+    - name: user
     - name: location
     - name: doctor
     - name: booking

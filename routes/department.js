@@ -6,7 +6,7 @@ const {
     createDepartment,
     updateDepartment,
     deleteDepartment,
-} = require("../controllers/Department")
+} = require("../controllers/department")
 
 router.route("/").get(getAllDepartments).post(createDepartment)
 
