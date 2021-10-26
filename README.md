@@ -22,19 +22,19 @@ Extra features that do not appear in the UI is usable through the Swagger UI [he
 
 ### Run website locally
 
-Download [Node.js](https://nodejs.org/en/download/current/)
+1. Download [Node.js](https://nodejs.org/en/download/current/)
 
-Download [MongoDB](https://www.mongodb.com/try/download/community)
+2. Download [MongoDB](https://www.mongodb.com/try/download/community)
 
-Clone this project using `git clone`
+3. Clone this project using `git clone`
 
-Download dependencies by running `npm install` in a console while in the root of the folder.
+4. Download dependencies by running `npm install` in a console while in the root of the folder.
 
-Create a `.env` file and place in the root of the folder with variables `JWT_SECRET (String), JWT_LIFETIME (String), PORT (int), MONGO_URI`
+5. Create a `.env` file and place in the root of the folder with variables `JWT_SECRET (String), JWT_LIFETIME (String), PORT (int), MONGO_URI`
 
-Run server by executing `npm run dev` or `npm start` in the console.
+6. Run server by executing `npm run dev` or `npm start` in the console.
 
-Navigate the browser to `localhost:3000` or the assigned PORT value in the .env file
+7. Navigate the browser to `localhost:3000` or the assigned PORT value in the .env file
 
 ### Deployment
 
