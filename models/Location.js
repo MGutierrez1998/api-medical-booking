@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const { departments } = require("../lists")
 
 const LocationSchema = new mongoose.Schema({
     room: {
@@ -16,7 +15,6 @@ const LocationSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Department",
         required: [true, "Please provide departmentId"],
-        immutable: true,
     },
 })
 

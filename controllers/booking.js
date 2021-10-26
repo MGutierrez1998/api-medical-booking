@@ -10,7 +10,6 @@ const getAllBookings = async (req, res) => {
         procedureId,
         week,
         dateFilters,
-        sort,
         select,
     } = req.query
     const queryObject = {}
@@ -77,11 +76,6 @@ const getAllBookings = async (req, res) => {
     result.populate("locationId")
     result.populate("procedureId")
 
-    // ordering
-    if (sort) {
-        const sortList = sort.split(",").join(" ")
-        result.sort(sortList)
-    }
     // filtering
     if (select) {
         const selectList = select.split(",").join(" ")

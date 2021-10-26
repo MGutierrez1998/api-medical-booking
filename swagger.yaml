@@ -37,12 +37,12 @@ paths:
                                 email:
                                     type: string
                                     example: user@gmail.com
-                                    pattern: '/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
+                                    pattern: '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
                                 password:
                                     type: string
                                     example: User1234!
                                     description: "Must have minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character"
-                                    pattern: "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/"
+                                    pattern: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
                                 role:
                                     type: string
                                     example: patient
@@ -52,13 +52,13 @@ paths:
                                     example: Robert
                                     minLength: 3
                                     maxLength: 50
-                                    pattern: "/^[A-Za-z-]+$/"
+                                    pattern: "^[A-Za-z-]+$"
                                 surname:
                                     type: string
                                     example: Alexander
                                     minLength: 3
                                     maxLength: 50
-                                    pattern: "/^[A-Za-z-]+$/"
+                                    pattern: "^[A-Za-z-]+$"
                                 gender:
                                     type: string
                                     example: other
@@ -267,7 +267,7 @@ paths:
                                     type: string
                                     description: "Must start with 02, 04, 03, 07, 08 and have 10 digits all together"
                                     example: "0412345678"
-                                    pattern: '/^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$/'
+                                    pattern: '^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$'
                                 address:
                                     type: string
                                     example: "123 Testing Street, NSW 2000"
@@ -339,6 +339,9 @@ paths:
                                     user:
                                         type: object
                                         properties:
+                                            id:
+                                                type: string
+                                                example: "61766b944e323ff152333ffe"
                                             email:
                                                 type: string
                                                 example: user@gmail.com
@@ -361,6 +364,7 @@ paths:
             tags:
                 - user
             summary: Get All Users
+            operationId: GetAllUsers
             parameters:
                 - name: role
                   in: query
@@ -368,10 +372,122 @@ paths:
                   schema:
                       type: string
                       enum: [patient, doctor, admin]
+                      example: patient
+                - name: name
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      pattern: "^[A-Za-z-]+$"
+                - name: surname
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      pattern: "^[A-Za-z-]+$"
+                - name: email
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                - name: gender
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      enum: [other, male, female]
+                      example: other
+                - name: dateFilters
+                  in: query
+                  required: false
+                  description: "Possible variables ( createdAt , updatedAt )  |  Supported operators ( > , >= , = , < , <= ) "
+                  schema:
+                      type: string
+                      example: "createdAt>=1633159914979"
+                - name: sort
+                  in: query
+                  required: false
+                  description: "This will sort the returning items in either numeric or alphabetic and can be inversed by adding a ( - ) operator prefixing the field. Sort filters can be chained using the ( , ) operator"
+                  schema:
+                      type: string
+                      example: "name,-surname"
+                - name: select
+                  in: query
+                  required: false
+                  description: "By default the query return all fields on the schema, defining a select field(s) will return on these field(s). Select filters can be chained using the ( , ) operator"
+                  schema:
+                      type: string
+                      example: "name,surname,email,mobile"
+                - name: page
+                  in: query
+                  required: false
+                  description: "By default the return data is segmetented depending on the limit of return and will return the first segment on the database. If the page value is 5 it will return the 5th segment of the database"
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
+                - name: limit
+                  in: query
+                  required: false
+                  description: "By default the return data is 10 items. Setting the limit field to 100 will return 100 items."
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
             responses:
                 "200":
-                    description: ""
+                    description: "Logged in Successfully"
                     headers: {}
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    user:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                _id:
+                                                    type: string
+                                                    example: "61766a7db8d4b12febe50d28"
+                                                email:
+                                                    type: string
+                                                    example: "aazaan@gmail.com"
+                                                password:
+                                                    type: string
+                                                    example: "$2a$10$rjblTeJZV9FLkR.g2GXheeIZkXwlcuM0jFhCio03sMhYWfJmAIPWG"
+                                                role:
+                                                    type: string
+                                                    example: doctor
+                                                name:
+                                                    type: string
+                                                    example: aazaan
+                                                surname:
+                                                    type: string
+                                                    example: kemp
+                                                gender:
+                                                    type: string
+                                                    example: other
+                                                nationality:
+                                                    type: string
+                                                    example: Croatian
+                                                mobile:
+                                                    type: string
+                                                    example: "0331432087"
+                                                address:
+                                                    type: string
+                                                    example: "919 imagination court, south australia"
+                                                createdAt:
+                                                    type: string
+                                                    example: "2021-10-25T08:27:41.979Z"
+                                                updatedAt:
+                                                    type: string
+                                                    example: "2021-10-25T08:27:41.979Z"
+                                                __v:
+                                                    type: number
+                                                    example: 0
+                                    count:
+                                        type: string
+                                        example: "1"
             deprecated: false
     /user/{id}:
         parameters:
@@ -403,29 +519,212 @@ paths:
                     application/x-www-form-urlencoded:
                         encoding: {}
                         schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                    example: user@gmail.com
+                                    pattern: '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+                                password:
+                                    type: string
+                                    example: User1234!
+                                    description: "Must have minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character"
+                                    pattern: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
+                                name:
+                                    type: string
+                                    example: Robert
+                                    minLength: 3
+                                    maxLength: 50
+                                    pattern: "^[A-Za-z-]+$"
+                                surname:
+                                    type: string
+                                    example: Alexander
+                                    minLength: 3
+                                    maxLength: 50
+                                    pattern: "^[A-Za-z-]+$"
+                                gender:
+                                    type: string
+                                    example: other
+                                    enum: [other, male, female]
+                                mobile:
+                                    type: string
+                                    description: "Must start with 02, 04, 03, 07, 08 and have 10 digits all together"
+                                    example: "0412345678"
+                                    pattern: '^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$'
+                                address:
+                                    type: string
+                                    example: "123 Testing Street, NSW 2000"
+                                    minLength: 3
+                                    maxLength: 100
+                required: false
+            responses:
+                "200":
+                    description: ""
+                    headers: {}
+            deprecated: false
+    /procedure:
+        get:
+            tags:
+                - procedure
+            summary: Get All Procedures
+            operationId: GetAllProcedures
+            responses:
+                "200":
+                    description: ""
+                    headers: {}
+            deprecated: false
+        post:
+            tags:
+                - procedure
+            summary: Create Procedure
+            operationId: CreateProcedure
+            parameters: []
+            requestBody:
+                content:
+                    application/x-www-form-urlencoded:
+                        encoding: {}
+                        schema:
                             required:
-                                - building
-                                - floor
-                                - room
+                                - procedure
+                                - duration
+                            type: object
+                            properties:
+                                procedure:
+                                    type: string
+                                    minLength: 3
+                                    maxLength: 100
+                                duration:
+                                    type: integer
+                                    description: "choose between 5 min - 3 hours in milliseconds, steps of 300000ms"
+                                    minimum: 300000
+                                    maximum: 10800000
+                required: false
+            responses:
+                "200":
+                    description: ""
+                    headers: {}
+            deprecated: false
+    /procedure/{id}:
+        parameters:
+            - in: path
+              name: id
+              schema:
+                  type: string
+              required: true
+              description: The procedure ID
+        get:
+            tags:
+                - procedure
+            summary: Get Procedure
+            operationId: GetProcedure
+            parameters: []
+            responses:
+                "200":
+                    description: ""
+                    headers: {}
+            deprecated: false
+        delete:
+            tags:
+                - procedure
+            summary: Delete Procedure
+            operationId: DeleteProcedure
+            parameters: []
+            responses:
+                "200":
+                    description: ""
+                    headers: {}
+            deprecated: false
+    /department:
+        get:
+            tags:
+                - department
+            summary: Get All Departments
+            operationId: GetAllDepartments
+            responses:
+                "200":
+                    description: ""
+                    headers: {}
+            deprecated: false
+        post:
+            tags:
+                - department
+            summary: Create Department
+            operationId: CreateDepartment
+            parameters: []
+            requestBody:
+                content:
+                    application/x-www-form-urlencoded:
+                        encoding: {}
+                        schema:
+                            required:
                                 - department
                             type: object
                             properties:
-                                building:
-                                    type: integer
-                                    format: int32
-                                    example: 3
-                                floor:
-                                    type: integer
-                                    format: int32
-                                    example: 2
-                                room:
-                                    type: integer
-                                    format: int32
-                                    example: 1
                                 department:
                                     type: string
-                                    example: Pediatrics
+                                    example: "Future Medicine"
+                                    minLength: 3
+                                    maxLength: 100
                 required: false
+            responses:
+                "200":
+                    description: ""
+                    headers: {}
+            deprecated: false
+    /department/{id}:
+        parameters:
+            - in: path
+              name: id
+              schema:
+                  type: string
+              required: true
+              description: The department ID
+        get:
+            tags:
+                - department
+            summary: Get Department
+            operationId: GetDepartment
+            parameters: []
+            responses:
+                "200":
+                    description: ""
+                    headers: {}
+            deprecated: false
+        patch:
+            tags:
+                - department
+            summary: Update Department
+            operationId: UpdateDepartment
+            parameters: []
+            requestBody:
+                content:
+                    application/x-www-form-urlencoded:
+                        encoding: {}
+                        schema:
+                            required:
+                                - procedure
+                                - updateType
+                            type: object
+                            properties:
+                                procedure:
+                                    type: string
+                                    description: "This must be the procedure _id that you want to add to this department"
+                                updateType:
+                                    type: string
+                                    description: "push will add to procedure in procedures array in this department / pull will remove procedure from procedures array"
+                                    enum: [push, pull]
+                required: false
+            responses:
+                "200":
+                    description: ""
+                    headers: {}
+            deprecated: false
+        delete:
+            tags:
+                - department
+            summary: Delete Department
+            operationId: DeleteDepartment
+            parameters: []
             responses:
                 "200":
                     description: ""
@@ -437,7 +736,32 @@ paths:
                 - location
             summary: Get All Locations
             operationId: GetAllLocations
-            parameters: []
+            parameters:
+                - name: room
+                  in: query
+                  description: "Room format must be [A-F].[1-6].[1-30]"
+                  required: false
+                  schema:
+                      type: string
+                - name: departmentId
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                - name: page
+                  in: query
+                  required: false
+                  description: "By default the return data is segmetented depending on the limit of return and will return the first segment on the database. If the page value is 5 it will return the 5th segment of the database"
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
+                - name: limit
+                  in: query
+                  required: false
+                  description: "By default the return data is 10 items. Setting the limit field to 100 will return 100 items."
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
             responses:
                 "200":
                     description: ""
@@ -455,27 +779,15 @@ paths:
                         encoding: {}
                         schema:
                             required:
-                                - building
-                                - floor
                                 - room
-                                - department
+                                - departmentId
                             type: object
                             properties:
-                                building:
-                                    type: integer
-                                    format: int32
-                                    example: 9
-                                floor:
-                                    type: integer
-                                    format: int32
-                                    example: 6
                                 room:
-                                    type: integer
-                                    format: int32
-                                    example: 2
-                                department:
                                     type: string
-                                    example: Medicine
+                                    example: "A.1.1"
+                                departmentId:
+                                    type: string
                 required: false
             responses:
                 "200":
@@ -513,27 +825,11 @@ paths:
                         encoding: {}
                         schema:
                             required:
-                                - building
-                                - floor
-                                - room
-                                - department
+                                - departmentId
                             type: object
                             properties:
-                                building:
-                                    type: integer
-                                    format: int32
-                                    example: 3
-                                floor:
-                                    type: integer
-                                    format: int32
-                                    example: 2
-                                room:
-                                    type: integer
-                                    format: int32
-                                    example: 1
-                                department:
+                                departmentId:
                                     type: string
-                                    example: Pediatrics
                 required: false
             responses:
                 "200":
@@ -557,7 +853,49 @@ paths:
                 - doctor
             summary: Get All Doctors
             operationId: GetAllDoctors
-            parameters: []
+            parameters:
+                - name: userId
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                - name: departmentId
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                - name: certification
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      enum:
+                          [
+                              "BA of Medicine",
+                              "BA of Surgery",
+                              "BA of Medical Science",
+                          ]
+                - name: select
+                  in: query
+                  required: false
+                  description: "By default the query return all fields on the schema, defining a select field(s) will return on these field(s). Select filters can be chained using the ( , ) operator"
+                  schema:
+                      type: string
+                      example: certification,departmentId
+                - name: page
+                  in: query
+                  required: false
+                  description: "By default the return data is segmetented depending on the limit of return and will return the first segment on the database. If the page value is 5 it will return the 5th segment of the database"
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
+                - name: limit
+                  in: query
+                  required: false
+                  description: "By default the return data is 10 items. Setting the limit field to 100 will return 100 items."
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
             responses:
                 "200":
                     description: ""
@@ -575,16 +913,20 @@ paths:
                         encoding: {}
                         schema:
                             required:
-                                - department
+                                - departmentId
                                 - certification
                             type: object
                             properties:
-                                department:
+                                departmentId:
                                     type: string
-                                    example: Radiology
                                 certification:
                                     type: string
-                                    example: BA of Surgery
+                                    enum:
+                                        [
+                                            "BA of Medicine",
+                                            "BA of Surgery",
+                                            "BA of Medical Science",
+                                        ]
                 required: false
             responses:
                 "200":
@@ -611,16 +953,20 @@ paths:
                         encoding: {}
                         schema:
                             required:
-                                - department
+                                - departmentId
                                 - certification
                             type: object
                             properties:
-                                department:
+                                departmentId:
                                     type: string
-                                    example: Geriatrics
                                 certification:
                                     type: string
-                                    example: BA of Medicine
+                                    enum:
+                                        [
+                                            "BA of Medicine",
+                                            "BA of Surgery",
+                                            "BA of Medical Science",
+                                        ]
                 required: false
             responses:
                 "200":
@@ -639,6 +985,67 @@ paths:
                     headers: {}
             deprecated: false
     /booking:
+        get:
+            tags:
+                - booking
+            summary: Get All Booking
+            operationId: GetAllBooking
+            parameters:
+                - name: userId
+                  in: query
+                  schema:
+                      type: string
+                - name: doctorId
+                  in: query
+                  schema:
+                      type: string
+                - name: locationId
+                  in: query
+                  schema:
+                      type: string
+                - name: procedureId
+                  in: query
+                  schema:
+                      type: string
+                - name: week
+                  in: query
+                  description: "this is a timestamp that will indicate the range of the week and will return all bookings from sunday to saturday where the timestamp lies"
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
+                - name: dateFilters
+                  in: query
+                  required: false
+                  description: "Possible variables ( bookingTime )  |  Supported operators ( > , >= , = , < , <= ) "
+                  schema:
+                      type: string
+                      example: "bookingTime>=1633159914979"
+                - name: select
+                  in: query
+                  required: false
+                  description: "By default the query return all fields on the schema, defining a select field(s) will return on these field(s). Select filters can be chained using the ( , ) operator"
+                  schema:
+                      type: string
+                      example: "doctorId,procedureId"
+                - name: page
+                  in: query
+                  required: false
+                  description: "By default the return data is segmetented depending on the limit of return and will return the first segment on the database. If the page value is 5 it will return the 5th segment of the database"
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
+                - name: limit
+                  in: query
+                  required: false
+                  description: "By default the return data is 10 items. Setting the limit field to 100 will return 100 items."
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
+            responses:
+                "200":
+                    description: ""
+                    headers: {}
+            deprecated: false
         post:
             tags:
                 - booking
@@ -653,39 +1060,28 @@ paths:
                             required:
                                 - doctorId
                                 - locationId
-                                - procedure
+                                - procedureId
                                 - description
                                 - bookingTime
                             type: object
                             properties:
                                 doctorId:
                                     type: string
-                                    example: 6154132eb0826a50c66d0596
                                 locationId:
                                     type: string
-                                    example: 615411f1b0826a50c66d0589
-                                procedure:
+                                procedureId:
                                     type: string
-                                    example: Appendectomy
                                 description:
                                     type: string
-                                    example: This is a test for the description
+                                    description: Please describe your signs and symptoms
+                                    example: This is a description
+                                    minLength: 3
+                                    maxLength: 100
                                 bookingTime:
-                                    type: integer
-                                    format: int64
+                                    type: string
+                                    description: This booking time must be a timestamp
                                     example: 1632833484405
                 required: false
-            responses:
-                "200":
-                    description: ""
-                    headers: {}
-            deprecated: false
-        get:
-            tags:
-                - booking
-            summary: Get All Booking
-            operationId: GetAllBooking
-            parameters: []
             responses:
                 "200":
                     description: ""
@@ -721,30 +1117,20 @@ paths:
                     application/x-www-form-urlencoded:
                         encoding: {}
                         schema:
-                            required:
-                                - doctorId
-                                - locationId
-                                - procedure
-                                - description
-                                - bookingTime
                             type: object
                             properties:
                                 doctorId:
                                     type: string
-                                    example: 6154132eb0826a50c66d0596
                                 locationId:
                                     type: string
-                                    example: 615411f1b0826a50c66d0589
-                                procedure:
+                                procedureId:
                                     type: string
-                                    example: Liposuction
                                 description:
                                     type: string
-                                    example: yes this is a description test
-                                bookingTime:
-                                    type: integer
-                                    format: int64
-                                    example: 1632833484405
+                                    description: Please describe your signs and symptoms
+                                    example: This is a description
+                                    minLength: 3
+                                    maxLength: 100
                 required: false
             responses:
                 "200":
@@ -768,7 +1154,25 @@ paths:
                 - diagnose
             summary: Get All Diagnoses
             operationId: GetAllDiagnoses
-            parameters: []
+            parameters:
+                - name: userId
+                  in: query
+                  schema:
+                      type: string
+                - name: page
+                  in: query
+                  required: false
+                  description: "By default the return data is segmetented depending on the limit of return and will return the first segment on the database. If the page value is 5 it will return the 5th segment of the database"
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
+                - name: limit
+                  in: query
+                  required: false
+                  description: "By default the return data is 10 items. Setting the limit field to 100 will return 100 items."
+                  schema:
+                      type: string
+                      pattern: "^[0-9]+$"
             responses:
                 "200":
                     description: ""
@@ -795,18 +1199,22 @@ paths:
                             properties:
                                 userId:
                                     type: string
-                                    example: 61540ee4b0826a50c66d057d
                                 bookingId:
                                     type: string
-                                    example: 615413fcb0826a50c66d059e
                                 issue:
                                     type: string
+                                    minLength: 3
+                                    maxLength: 200
                                     example: Appendix Eruption
                                 outcome:
                                     type: string
+                                    minLength: 3
+                                    maxLength: 200
                                     example: Surgical Removal of appendix
                                 recommendation:
                                     type: string
+                                    minLength: 3
+                                    maxLength: 200
                                     example: Anasthetic and Ice the local area
                 required: false
             responses:
@@ -839,6 +1247,28 @@ paths:
             summary: Update Diagnose
             operationId: UpdateDiagnose
             parameters: []
+            requestBody:
+                content:
+                    application/x-www-form-urlencoded:
+                        encoding: {}
+                        schema:
+                            type: object
+                            properties:
+                                issue:
+                                    type: string
+                                    minLength: 3
+                                    maxLength: 200
+                                    example: Appendix Eruption
+                                outcome:
+                                    type: string
+                                    minLength: 3
+                                    maxLength: 200
+                                    example: Surgical Removal of appendix
+                                recommendation:
+                                    type: string
+                                    minLength: 3
+                                    maxLength: 200
+                                    example: Anasthetic and Ice the local area
             responses:
                 "200":
                     description: ""
@@ -854,6 +1284,8 @@ security:
 tags:
     - name: auth
     - name: user
+    - name: procedure
+    - name: department
     - name: location
     - name: doctor
     - name: booking

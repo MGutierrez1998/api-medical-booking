@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const { certifications, departments } = require("../lists")
+const { certifications } = require("../lists")
 
 const DoctorSchema = new mongoose.Schema({
     userId: {

@@ -74,6 +74,7 @@ const UserSchema = new mongoose.Schema(
                     "{VALUE} is not supported for nationlity, choose another nationality",
             },
             required: [true, "Please provide nationality"],
+            immutable: true,
         },
         mobile: {
             type: String,
