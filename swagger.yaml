@@ -4,10 +4,10 @@ info:
     description: Made by - P's Get Degrees
     contact:
         name: Go to the Front End
-        url: https://api-medical-booking.herokuapp.com/
+        url: https://web-medical-booking.herokuapp.com/
     version: "1.0"
 servers:
-    - url: https://api-medical-booking.herokuapp.com/api/v1
+    - url: https://web-medical-booking.herokuapp.com/api/v1
       variables: {}
 paths:
     /auth/register:
