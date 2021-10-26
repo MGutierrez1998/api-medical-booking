@@ -63,7 +63,7 @@ app.get("/", async (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"))
 })
 
-app.use("/api-use", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+app.use("/api", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 // error handlers
 app.use(notFoundMiddleware)
