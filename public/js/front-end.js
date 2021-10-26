@@ -201,6 +201,7 @@ booking.style.display = "none"
 document.querySelector("#create-booking").onclick = () => {
     booking_list.style.display = "none"
     booking.style.display = "block"
+    diagnose_list.style.display = "none"
 }
 
 // go to dashboard from booking form
