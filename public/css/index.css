@@ -2,19 +2,24 @@ body {
 }
 
 #login-form {
-    /* display: none; */
+    display: none;
     max-width: 800px;
     margin: auto;
 }
 
 #registration-form {
-    /* display: none; */
+    display: none;
     max-width: 800px;
     margin: auto;
 }
 
+#booking-form{
+    margin: auto;
+    max-width: 800px;
+}
+
 #dashboard {
-    display: none;
+    /* display: none; */
 }
 
 .row {
@@ -100,4 +105,26 @@ nav {
     color: red;
     font-size: 18px;
     font-weight: 500;
+}
+
+
+/* Booking Form */
+.select-container{
+    display: grid;
+    grid-template-columns: 18fr 1fr;
+}
+
+.next-btn{
+    height: 38px;
+    margin-top: 6px;
+    
+    border: 1px lightgrey solid !important; 
+}
+
+#booking-description{
+    margin-top: 6px;
+}
+
+#booking-bookingTime{
+    margin-top: 6px;
 }
