@@ -260,11 +260,12 @@
 
                         <div id="booking-response"></div>
 
-                        <div>
+                        <div class="form-group group">
                             <label for="department">
                                 <strong>Department</strong>
                             </label>
                             <select
+                                class="form-select inp"
                                 name="department"
                                 id="department-list"
                                 required
@@ -275,11 +276,12 @@
                             </select>
                         </div>
 
-                        <div>
+                        <div class="form-group group">
                             <label for="procedureId">
                                 <strong>Procedure</strong>
                             </label>
                             <select
+                                class="form-select inp"
                                 name="procedureId"
                                 id="procedure-list"
                                 required
@@ -290,23 +292,34 @@
                             </select>
                         </div>
 
-                        <div>
-                            <label for="doctorId">
-                                <strong>Doctor</strong>
-                            </label>
-                            <select name="doctorId" id="doctor-list" required>
-                                <option value="" disabled selected>
-                                    Choose Doctor
-                                </option>
-                            </select>
-                            <button type="button" id="next-doctor">↻</button>
-                        </div>
+                        
+                            <div class="form-group group">
+                                <label for="doctorId">
+                                    <strong>Doctor</strong>
+                                </label>
+                                <div class="select-container">
+                                <select 
+                                class="form-select inp"
+                                name="doctorId" 
+                                id="doctor-list" 
+                                required>
+                                    <option value="" disabled selected>
+                                        Choose Doctor
+                                    </option>
+                                </select>
+                                <button type="button" id="next-doctor" class="btn next-btn">↻</button>
+                            </div>
+                            </div>
+                        
+                       
 
-                        <div>
+                        <div class="form-group group">
                             <label for="locationId">
                                 <strong>Location</strong>
                             </label>
+                            <div class="select-container">
                             <select
+                                class="form-select inp"
                                 name="locationId"
                                 id="location-list"
                                 required
@@ -315,11 +328,12 @@
                                     Choose Location
                                 </option>
                             </select>
-                            <button type="button" id="next-location">↻</button>
+                            <button type="button" id="next-location" class="btn next-btn">↻</button>
+                        </div>
                         </div>
 
-                        <div>
-                            <label for="bookingTime">
+                        <div class="form-group group">
+                            <label for="bookingTime" style="display: block;">
                                 <strong>Booking Time</strong>
                             </label>
                             <input
@@ -330,11 +344,12 @@
                             />
                         </div>
 
-                        <div>
-                            <label for="description">
+                        <div class="form-group group">
+                            <label for="description" style="display: block;">
                                 <strong>Description</strong>
                             </label>
                             <textarea
+                            class="form-control"
                                 id="booking-description"
                                 name="description"
                                 rows="4"
@@ -347,7 +362,7 @@
                         </div>
 
                         <div>
-                            <button type="submit" id="booking-submit">
+                            <button type="submit" id="booking-submit" class="btn btn-primary" style="margin-top: 20px;">
                                 Book Appointment
                             </button>
                         </div>
