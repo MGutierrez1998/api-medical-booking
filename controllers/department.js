@@ -55,7 +55,6 @@ const updateDepartment = async (req, res) => {
             },
         }
     }
-    console.log(update)
 
     const department = await Department.findByIdAndUpdate(
         departmentId,
