@@ -37,6 +37,17 @@
                 </ul>
             </div>
         </nav>
+        <nav id="buttons-nav">
+                <div id="btn-container">
+                <button type="button" id="create-booking" class="btn btn-dark nav-btn">
+                    Make a Booking
+                </button>
+                <button type="button" id="goto-dashboard" class="btn btn-dark nav-btn">Dashboard</button>
+                <button type="button" id="goto-diagnose" class="btn btn-dark nav-btn">
+                    Medical History
+                </button>
+        </div>
+        </nav>
         <div id="root">
             <!-- Registration Form -->
             <form id="registration-form">
@@ -239,17 +250,34 @@
                 </fieldset>
             </form>
 
+            <!-- <div id="dash">
+                <hr>
+                <table id="table">
+                    
+                    <tr>
+                      <th>Procedure</th>
+                      <th>Duration</th>
+                      <th>Doctor</th>
+                      <th>Booking Tme</th>
+                      <th>Location</th>
+                    </tr>
+                    <tr>
+                      <td>Alfreds Futterkiste</td>
+                      <td>Maria Anders</td>
+                      <td>Germany</td>
+                      <td>Germany</td>
+                      <td>Germany</td>
+                    </tr>
+                   
+                  </table>
+
+                  
+            </div> -->
+
+
             <!-- Dashboard -->
             <div id="dashboard">
-                <nav>
-                    <button type="button" id="create-booking">
-                        Make a Booking
-                    </button>
-                    <button type="button" id="goto-dashboard">Dashboard</button>
-                    <button type="button" id="goto-diagnose">
-                        Medical History
-                    </button>
-                </nav>
+                
 
                 <!-- Booking Form -->
                 <form id="booking-form">
@@ -372,25 +400,6 @@
                 <div id="booking-list"></div>
                 <div id="booking-diagnose"></div>
             </div>
-
-            <!-- <div id="welcome">
-                <div class="welcome">
-                    <div class="col-md-6 container">
-                        <div>.</div>
-                        <div class="card welcard card-body text-center">
-                            <img src="logo.png" style="width: 20rem;height: 20rem;margin: 0 auto;" />
-                            <h1 class="welcomeh1">Xyz Medical App</h1>
-                            <h2 class="welcomeh2">Book Online Now!</h2>
-                            <a
-                                href="/users/register"
-                                class="btn btn-primary btn-block mb-2"
-                                >Join Now</a
-                            >
-                            <a href="/users/login" class="btn btn-secondary btn-block">Login</a>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </body>
 </html>

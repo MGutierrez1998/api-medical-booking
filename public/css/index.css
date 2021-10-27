@@ -19,8 +19,23 @@ body {
 }
 
 #dashboard {
-    /* display: none; */
+    display: none;
 }
+
+#dash{
+    max-width: 800px;
+    margin: auto;
+    margin-top: 40px;
+}
+
+td, th {
+    border: 1px solid black !important;
+    text-align: left;
+    padding: 8px;
+  }
+
+
+
 
 .row {
     width: 500px;
@@ -127,4 +142,29 @@ nav {
 
 #booking-bookingTime{
     margin-top: 6px;
+}
+
+table{
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Nav Bar */
+#buttons-nav{
+    background-color: rgb(124, 124, 124);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding-right: 40px; */
+    
+}
+
+
+.nav-btn{
+    margin-right: 30px;
+}
+
+#btn-container{
+    vertical-align: middle;
 }
