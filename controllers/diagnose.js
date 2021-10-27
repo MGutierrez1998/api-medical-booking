@@ -10,7 +10,7 @@ const getAllDiagnoses = async (req, res) => {
         queryObject.userId = userId
     }
 
-    const result = Diagnose.find({ queryObject }).sort("createdAt")
+    const result = Diagnose.find(queryObject).sort("createdAt")
     result.populate({
         path: "bookingId",
         populate: {

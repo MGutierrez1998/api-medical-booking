@@ -232,6 +232,8 @@ async function get_patient_history() {
         })
     ).json()
 
+    console.log(response)
+
     diagnose_list.innerHTML = response.diagnose
         .map((diagnose) => {
             const {
