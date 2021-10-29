@@ -142,7 +142,7 @@ async function load_patient_dashboard() {
     ).json()
 
     const { booking } = response
-    document.querySelector("#booking-list").innerHTML = booking
+    document.querySelector("#booking-list").innerHTML += booking
         .map((book) => {
             const {
                 _id,
@@ -156,7 +156,8 @@ async function load_patient_dashboard() {
 
             const date = new Date(bookingTime)
 
-            return `<div id="dash">
+            return `
+            <div id="dash">
             <hr>
             <table>
                 
@@ -448,12 +449,31 @@ booking.addEventListener("submit", async (event) => {
 
                 console.log(book)
 
-                return `<div id="${_id}">
-                            <h3>Procedure: ${procedure}</h3>
-                            <h4>Doctor: ${name} ${surname}</h4>
-                            <h4>Booking Time: ${bookingTime}</h4>
-                            <h4>Location: ${room}</h4>
-                        </div>`
+                return `<div id="dash">
+                <hr>
+                <table>
+                    
+                    <tr>
+                      <th>Procedure</th>
+                      <th>Duration</th>
+                      <th>Doctor</th>
+                      <th>Booking Tme</th>
+                      <th>Location</th>
+                    </tr>
+                    <tr>
+                      <td>${procedure}</td>
+                      <td>${duration / 60000}</td>
+                      <td>${name} ${surname}</td>
+                      <td>${
+                        date.getHours() > 12 ? date.getHours() - 12 : date.getHours()
+                    }:${date.getMinutes()}${
+                        date.getHours() > 12 ? "pm" : "am"
+                    },  ${date.getDate()}/${date.getUTCMonth()}/${date.getUTCFullYear()}</td>
+                      <td>${room}</td>
+                    </tr>
+                   
+                  </table>
+            </div>`
             })
             .join("")
 
