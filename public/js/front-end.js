@@ -76,6 +76,7 @@ document.querySelector("#goto-login").onclick = () => {
 
 // on login form submission event
 const login = document.querySelector("#login-form")
+const btnNav = document.querySelector("#buttons-nav")
 login.addEventListener("submit", async (event) => {
     event.preventDefault()
 
@@ -99,6 +100,7 @@ login.addEventListener("submit", async (event) => {
     if (response.token) {
         login.style.display = "none"
         dashboard.style.display = "block"
+        btnNav.style.display = "flex"
         token = response.token
         userId = response.user.id
         if (response.user.role === "patient") {

@@ -2,7 +2,7 @@ body {
 }
 
 #login-form {
-    display: none;
+    /* display: none; */
     max-width: 800px;
     margin: auto;
 }
@@ -19,7 +19,7 @@ body {
 }
 
 #dashboard {
-    display: none;
+    /* display: none; */
 }
 
 #dash{
@@ -163,6 +163,11 @@ table{
 
 .nav-btn{
     margin-right: 30px;
+    
+}
+
+#buttons-nav{
+    display: none;
 }
 
 #btn-container{
