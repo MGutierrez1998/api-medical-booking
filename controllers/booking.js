@@ -26,18 +26,26 @@ const getAllBookings = async (req, res) => {
     if (procedureId) {
         queryObject.procedureId = procedureId
     }
-    // uses specified datetime to get the range of the whole week
+    // uses specified datetime to get the range of the whole week from monday to sunday
     if (week) {
-        const current = new Date(Number(week))
-        let weekstart = current.getDate() - current.getDay()
-        let weekend = weekstart + 7
-        weekstart = new Date(current.setDate(weekstart))
-        weekend = new Date(current.setDate(weekend))
+        const today = new Date(Number(week))
+        const todayNumber = today.getDay()
+        monday = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate() + (1 - todayNumber)
+        )
+        sunday = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate() + (7 - todayNumber)
+        )
         queryObject.bookingTime = {
-            $gte: weekstart.setHours(0, 0, 0, 0),
-            $lt: weekend.setHours(0, 0, 0, 0),
+            $gte: monday,
+            $lt: sunday,
         }
     }
+
     // specify a date range
     if (dateFilters) {
         dateFilters.replace("&lt;", "<")

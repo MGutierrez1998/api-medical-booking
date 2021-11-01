@@ -1,40 +1,40 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 
 const DiagnoseSchema = new mongoose.Schema(
     {
         userId: {
             type: mongoose.Types.ObjectId,
-            ref: 'User',
-            required: [true, 'Please provide userId'],
+            ref: "User",
+            required: [true, "Please provide userId"],
             immutable: true,
         },
         bookingId: {
             type: mongoose.Types.ObjectId,
-            ref: 'Booking',
-            required: [true, 'Please provide bookingId'],
+            ref: "Booking",
+            required: [true, "Please provide bookingId"],
             immutable: true,
             unique: true,
         },
         issue: {
             type: String,
-            required: [true, 'Please provide a issue'],
+            required: [true, "Please provide a issue"],
             maxlength: [200, `Issue must not exceed 200 characters`],
-            minlength: [3,`Issue must be greater than 3 characters`],
+            minlength: [3, `Issue must be greater than 3 characters`],
         },
         outcome: {
             type: String,
-            required: [true, 'Please provide a outcome'],
+            required: [true, "Please provide a outcome"],
             maxlength: [200, `Outcome must not exceed 200 characters`],
-            minlength: [3,`Outcome must be greater than 3 characters`],
+            minlength: [3, `Outcome must be greater than 3 characters`],
         },
         recommendation: {
             type: String,
-            required: [true, 'Please provide a recommendation'],
+            required: [true, "Please provide a recommendation"],
             maxlength: [200, `Recommendation must not exceed 200 characters`],
-            minlength: [3,`Recommendation must be greater than 3 characters`],
+            minlength: [3, `Recommendation must be greater than 3 characters`],
         },
     },
-    {timestamps: true}
+    { timestamps: true }
 )
 
-module.exports = mongoose.model('Diagnose', DiagnoseSchema)
+module.exports = mongoose.model("Diagnose", DiagnoseSchema)

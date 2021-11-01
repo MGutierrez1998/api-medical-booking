@@ -94,8 +94,6 @@ login.addEventListener("submit", async (event) => {
         })
     ).json()
 
-    console.log(response)
-
     if (response.token) {
         login.style.display = "none"
         dashboard.style.display = "block"
@@ -231,8 +229,6 @@ async function get_patient_history() {
             },
         })
     ).json()
-
-    console.log(response)
 
     diagnose_list.innerHTML = response.diagnose
         .map((diagnose) => {
