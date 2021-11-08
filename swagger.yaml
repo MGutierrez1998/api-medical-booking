@@ -655,12 +655,12 @@ paths:
             summary: Get All Departments
             operationId: GetAllDepartments
             parameters:
-                - name: procedure
+                - name: department
                   in: query
                   required: false
                   schema:
                       type: string
-                      example: Sedation
+                      example: Anesthesiology
             responses:
                 "200":
                     description: ""
