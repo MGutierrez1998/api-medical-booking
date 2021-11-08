@@ -21,6 +21,7 @@ const path = require("path")
 // middleware
 const notFoundMiddleware = require("./middleware/not-found")
 const errorHandlerMiddleware = require("./middleware/error-handler")
+const cache = require("./middleware/routeCache")
 
 // routes
 const authRouter = require("./routes/auth")
@@ -58,7 +59,7 @@ app.use("/api/v1/doctor", authenticateUser, doctorRouter)
 app.use("/api/v1/booking", authenticateUser, bookingRouter)
 app.use("/api/v1/diagnose", authenticateUser, diagnoseRouter)
 app.use("/api/v1/procedure", authenticateUser, procedureRouter)
-app.use("/api/v1/department", authenticateUser, departmentRouter)
+app.use("/api/v1/department", authenticateUser, cache(300), departmentRouter)
 
 // web routes
 app.use(express.static(path.join(__dirname, "public")))
