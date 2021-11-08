@@ -1,4 +1,4 @@
-const Location = require("../models/Location")
+const { Booking, Location } = require("../models")
 const { StatusCodes } = require("http-status-codes")
 const { NotFoundError, BadRequestError } = require("../errors")
 
@@ -72,6 +72,10 @@ const deleteLocation = async (req, res) => {
     if (!location) {
         throw new NotFoundError(`No location with id ${locationId}`)
     }
+
+    // cascading delete
+    const booking = await Booking.deleteMany({ locationId })
+
     res.status(StatusCodes.OK).send(`deleted document ${locationId}`)
 }
 

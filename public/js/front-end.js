@@ -176,7 +176,7 @@ async function load_patient_dashboard() {
         })
     ).json()
 
-    departments = departments.department
+    departments = departments.departments
 
     document.querySelector("#department-list").innerHTML += departments
         .map(

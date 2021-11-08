@@ -1,4 +1,4 @@
-const Booking = require("../models/Booking")
+const { Booking, Diagnose } = require("../models")
 const { StatusCodes } = require("http-status-codes")
 const { NotFoundError, BadRequestError } = require("../errors")
 
@@ -180,7 +180,11 @@ const deleteBooking = async (req, res) => {
     if (!booking) {
         throw new NotFoundError(`No booking with id ${bookingId}`)
     }
-    res.status(StatusCodes.OK).send(`deleted document ${bookingId}`)
+
+    // cascading delete
+    const diagnose = await Diagnose.findOneAndDelete({ bookingId })
+
+    return res.status(StatusCodes.OK).send(`deleted document ${bookingId}`)
 }
 
 module.exports = {
