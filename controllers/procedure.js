@@ -10,9 +10,12 @@ const getAllProcedures = async (req, res) => {
         queryObject.procedure = { $regex: procedure, $options: "i" }
     }
 
+    console.log(numericFilters)
+
     if (numericFilters) {
         numericFilters.replace("%3C", "<")
         numericFilters.replace("%3D", "=")
+        console.log(numericFilters)
         const operatorMap = {
             ">": "$gt",
             ">=": "$gte",
