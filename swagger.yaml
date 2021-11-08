@@ -568,6 +568,20 @@ paths:
                 - procedure
             summary: Get All Procedures
             operationId: GetAllProcedures
+            parameters:
+                - name: procedure
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      example: Sedation
+                - name: numericFilters
+                  in: query
+                  required: false
+                  description: "Possible variables ( duration )  |  Supported operators ( > , >= , = , < , <= )"
+                  schema:
+                      type: string
+                      example: "duration<=900000"
             responses:
                 "200":
                     description: ""
