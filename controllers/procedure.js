@@ -11,8 +11,8 @@ const getAllProcedures = async (req, res) => {
     }
 
     if (numericFilters) {
-        numericFilters.replace("&lt;", "<")
-        numericFilters.replace("&lte;", "<=")
+        numericFilters.replace("%3C", "<")
+        numericFilters.replace("%3D", "=")
         const operatorMap = {
             ">": "$gt",
             ">=": "$gte",
