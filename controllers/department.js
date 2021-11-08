@@ -3,9 +3,16 @@ const { StatusCodes } = require("http-status-codes")
 const { NotFoundError } = require("../errors")
 
 const getAllDepartments = async (req, res) => {
-    const result = Department.find({}).populate("procedures")
-    const department = await result
-    res.status(StatusCodes.OK).json({ department, count: department.length })
+    const { department } = req.query
+    const queryObject = {}
+
+    if (department) {
+        queryObject.department = { $regex: department, $options: "i" }
+    }
+
+    const result = Department.find(queryObject).populate("procedures")
+    const departments = await result
+    res.status(StatusCodes.OK).json({ departments, count: departments.length })
 }
 
 const getDepartment = async (req, res) => {

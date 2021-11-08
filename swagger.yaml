@@ -654,6 +654,13 @@ paths:
                 - department
             summary: Get All Departments
             operationId: GetAllDepartments
+            parameters:
+                - name: procedure
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      example: Sedation
             responses:
                 "200":
                     description: ""
