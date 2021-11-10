@@ -16,6 +16,8 @@ Extra features that do not appear in the UI is usable through the Swagger UI [he
 
 -   Mark Gutierrez (Technical Writer)
 
+-   Tien Loc Le (README.md Designer)
+
 -   Adam Kabbara (CSS Designer)
 
 ## Installation Instruction

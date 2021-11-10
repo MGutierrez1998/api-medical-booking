@@ -33,6 +33,7 @@ const UserSchema = new mongoose.Schema(
             },
             default: roles[0],
             immutable: true,
+            index: 1,
         },
         name: {
             type: String,
@@ -45,6 +46,7 @@ const UserSchema = new mongoose.Schema(
             ],
             lowercase: true,
             trim: true,
+            index: 1,
         },
         surname: {
             type: String,
@@ -57,6 +59,7 @@ const UserSchema = new mongoose.Schema(
             ],
             lowercase: true,
             trim: true,
+            index: 1,
         },
         gender: {
             type: String,
@@ -65,6 +68,7 @@ const UserSchema = new mongoose.Schema(
                 message: "{VALUE} is not supported",
             },
             default: genders[0],
+            index: 1,
         },
         nationality: {
             type: String,
@@ -75,6 +79,7 @@ const UserSchema = new mongoose.Schema(
             },
             required: [true, "Please provide nationality"],
             immutable: true,
+            index: 1,
         },
         mobile: {
             type: String,
@@ -83,6 +88,7 @@ const UserSchema = new mongoose.Schema(
                 /^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$/,
                 "Please only use numbers for mobile",
             ],
+            index: 1,
         },
         address: {
             type: String,
@@ -90,6 +96,7 @@ const UserSchema = new mongoose.Schema(
             maxlength: [100, `Address cannot exceed 100 characters`],
             minlength: [3, `Address must be greater than 3 characters`],
             lowercase: true,
+            index: 1,
         },
     },
     { timestamps: true }
