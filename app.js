@@ -35,7 +35,7 @@ const departmentRouter = require("./routes/department")
 const authenticateUser = require("./middleware/authentication")
 
 // dev dependencies: comment out in prod
-app.use(require("morgan")("dev"))
+// app.use(require("morgan")("dev"))
 
 // security
 app.set("trust proxy", 1)
